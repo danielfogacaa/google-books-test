@@ -1,7 +1,7 @@
 import { IBookList } from 'interfaces';
 import { Api } from 'providers';
 
-const getAll = () => Api.get<IBookList>('/volumes?q=hoje');
+const getAll = (searchText: string) => Api.get<IBookList>(`/volumes?q=${searchText}`);
 
 export const BooksService = {
   getAll,

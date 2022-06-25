@@ -1,17 +1,20 @@
 import { useCallback, useState } from 'react';
-import { IBookList } from '../interfaces';
+import { IBookList, IBook } from '../interfaces';
 import { BooksService } from '../services';
+import * as _ from 'lodash';
 
 export const useBooks = () => {
-  const [bookList, setBookList] = useState<IBookList>();
+  const [listInfo, setListInfo] = useState<Omit<IBookList, 'items'>>();
+  const [bookList, setBookList] = useState<IBook[]>([]);
 
-  const getAll = useCallback(async () => {
-    const { status, data } = await BooksService.getAll();
+  const getAll = useCallback(async (searchText: string) => {
+    const { status, data } = await BooksService.getAll(searchText);
 
     if (status !== 200) throw new Error();
 
-    setBookList(data);
+    setListInfo(_.omit(data, 'items'));
+    setBookList((oldState) => [...oldState, ...data.items]);
   }, []);
 
-  return { bookList, getAll };
+  return { listInfo, bookList, getAll };
 };

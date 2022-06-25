@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useBooks } from 'hooks';
 import { Header, Row, Input, Text, Button } from 'components';
 
 export const Home = () => {
-  const { getAll } = useBooks();
+  const { listInfo, bookList, getAll } = useBooks();
+  const [searchText, setSearchText] = useState<string>('');
 
-  useEffect(() => {
-    getAll();
-  }, [getAll]);
+  const handleSearch = () => {
+    getAll(searchText);
+  };
 
   return (
     <>
@@ -16,13 +17,22 @@ export const Home = () => {
           Biblioteca de livros
         </Text>
         <Text fontSize='1.5rem'>
-          Encontre seus livros favoritos e descubra novas obras
+          Encontre seus livros favoritos e descubra novos mundos
         </Text>
         <Row>
-          <Input width={300} height={50} />
-          <Button>Ok</Button>
+          <Input
+            width={300}
+            height={50}
+            onChange={(e) => setSearchText(e.target.value)}
+            placeholder='Pesquisar...'
+          />
+          <Button onClick={handleSearch}>Ok</Button>
         </Row>
       </Header>
+      {listInfo?.totalItems}
+      {bookList?.map((item) => {
+        return <div key={item.id}>{item.volumeInfo.title}</div>;
+      })}
     </>
   );
 };
