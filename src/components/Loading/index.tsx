@@ -1,9 +1,15 @@
-import styled from 'styled-components';
+import { Backdrop } from './Backdrop';
+import { Loader } from './Loader';
+import { Text } from 'components';
+import React from 'react';
 
-export const Loading = styled.div`
-  background: #2d2d2d48;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+export const Loading: React.FC = () => {
+  return (
+    <Backdrop>
+      <Loader />
+      <Text fontSize='2rem' fontWeight='bold'>
+        Loading...
+      </Text>
+    </Backdrop>
+  );
+};

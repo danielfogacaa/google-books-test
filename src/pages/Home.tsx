@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 export const Home = () => {
-  const { listInfo, bookList, getAll } = useBooks();
+  const { listInfo, bookList, getAll, isLoading } = useBooks();
   const [searchText, setSearchText] = useState<string>('');
 
   const handleSearch = useCallback(
@@ -19,14 +19,14 @@ export const Home = () => {
         return;
       }
       setSearchText('');
-      getAll(searchText);
+      getAll(searchText, true);
     },
     [getAll, searchText]
   );
 
   return (
     <>
-      <Loading />
+      {isLoading && <Loading />}
       <Header>
         <Text fontSize='3rem' fontWeight='bold'>
           Biblioteca de livros
