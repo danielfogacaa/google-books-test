@@ -7,4 +7,8 @@ export const Input = styled.input<LayoutProps>`
   border-bottom: 1px solid #fff;
   font-size: 1.2rem;
   ${layout}
+
+  &::placeholder {
+    color: #ffffffbb;
+  }
 `;
