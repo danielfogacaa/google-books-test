@@ -1,32 +1,52 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useBooks } from 'hooks';
-import { Header, Row, Input, Text, Button } from 'components';
+import { Loading, Header, Row, Input, Text, Button } from 'components';
+import toast from 'react-hot-toast';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 export const Home = () => {
   const { listInfo, bookList, getAll } = useBooks();
   const [searchText, setSearchText] = useState<string>('');
 
-  const handleSearch = () => {
-    getAll(searchText);
-  };
+  const handleSearch = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      e.preventDefault();
+      if (!searchText) {
+        toast.error(
+          `Você deve digitar algo para que possamos encontrar seu livro!`
+        );
+        return;
+      }
+      setSearchText('');
+      getAll(searchText);
+    },
+    [getAll, searchText]
+  );
 
   return (
     <>
+      <Loading />
       <Header>
         <Text fontSize='3rem' fontWeight='bold'>
           Biblioteca de livros
         </Text>
         <Text fontSize='1.5rem'>
-          Encontre seus livros favoritos e descubra novos mundos
+          Encontre seus livros favoritos e descubra novos
         </Text>
         <Row>
-          <Input
-            width={300}
-            height={50}
-            onChange={(e) => setSearchText(e.target.value)}
-            placeholder='Pesquisar...'
-          />
-          <Button onClick={handleSearch}>Ok</Button>
+          <form>
+            <Input
+              width={300}
+              height={50}
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              placeholder='Nos ajude a encontrar seu livro...'
+            />
+            <Button onClick={(e) => handleSearch(e)} type='submit'>
+              <FontAwesomeIcon icon={faSearch} />
+            </Button>
+          </form>
         </Row>
       </Header>
       {listInfo?.totalItems}
