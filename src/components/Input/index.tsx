@@ -11,4 +11,8 @@ export const Input = styled.input<LayoutProps>`
   &::placeholder {
     color: #ffffffbb;
   }
+
+  &:focus {
+    box-shadow: 0 8px 5px -3px #ffffff40;
+  }
 `;
