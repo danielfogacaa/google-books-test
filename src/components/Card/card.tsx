@@ -14,8 +14,13 @@ export const Card: React.FC<Props> = ({ bookInfo }) => {
   const theme = useTheme() as ThemeType;
   const navigate = useNavigate();
   const { id, volumeInfo } = bookInfo;
+
+  const handleCardClick = () => {
+    navigate(`/book-details/${id}`);
+  };
+
   return (
-    <CardContainer>
+    <CardContainer onClick={handleCardClick}>
       <Details>
         <Header padding='0.6rem'>
           <Text fontSize='1.2rem' lineClamp={2} title={volumeInfo?.title}>
@@ -45,7 +50,10 @@ export const Card: React.FC<Props> = ({ bookInfo }) => {
               : 'Sem editora'}
           </Text>
         </Text>
-        <Text title={volumeInfo?.description} color={theme.colors.orange}>
+        <Text
+          title={volumeInfo?.description}
+          color={theme.colors.textSecondary}
+        >
           {volumeInfo?.description}
         </Text>
       </Details>

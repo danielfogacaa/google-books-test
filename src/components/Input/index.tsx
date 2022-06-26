@@ -3,13 +3,13 @@ import { layout, LayoutProps } from 'styled-system';
 
 export const Input = styled.input<LayoutProps>`
   background: transparent;
-  color: #fff;
-  border-bottom: 1px solid #fff;
+  color: ${(props) => props.theme.colors.textPrimary};
+  border-bottom: 1px solid ${(props) => props.theme.colors.textPrimary};
   font-size: 1.2rem;
   ${layout}
 
   &::placeholder {
-    color: #ffffffbb;
+    color: #ffffff9f;
   }
 
   &:focus {

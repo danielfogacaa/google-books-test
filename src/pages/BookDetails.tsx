@@ -17,7 +17,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { ThemeType } from '@/themes';
 import { useTheme } from 'styled-components';
 
-export const Home = () => {
+export const BookDetails = () => {
   const theme = useTheme() as ThemeType;
   const { listInfo, bookList, getAll, isLoading, startIndex } = useBooks();
   const [searchText, setSearchText] = useState<string>('');
@@ -41,6 +41,7 @@ export const Home = () => {
 
   return (
     <>
+      Book Details
       {isLoading && <Loading />}
       <Header padding='2rem'>
         <Text fontSize='3rem' fontWeight='bold'>

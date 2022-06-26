@@ -9,6 +9,6 @@ export const Backdrop = styled.div`
   align-items: center;
   gap: 1.2rem;
   background: #2d2d2d9c;
-  color: #fff;
+  color: ${(props) => props.theme.colors.textPrimary};
   z-index: 99;
 `;

@@ -11,7 +11,7 @@ import {
 export const Button = styled.button<ColorProps & LayoutProps & TypographyProps>`
   width: 100%;
   background: transparent;
-  color: #fff;
+  color: ${(props) => props.theme.colors.textPrimary};
   border-radius: 24px;
   padding: 0.5rem;
   cursor: pointer;

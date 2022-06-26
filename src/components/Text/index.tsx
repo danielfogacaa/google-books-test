@@ -17,6 +17,7 @@ export const Text = styled.p<
 >`
   color: ${(props) => props.theme.colors.primary};
   overflow: hidden;
+  overflow-wrap: anywhere;
   display: -webkit-box;
   -webkit-line-clamp: ${(props) => props.lineClamp || 3};
   -webkit-box-orient: vertical;

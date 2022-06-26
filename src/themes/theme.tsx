@@ -5,15 +5,17 @@ interface Props {
   children: React.ReactNode;
 }
 
-const primary = '#eeeeee';
+const primary = '#e2e2e2';
 const secondary = '#2764c4';
-const orange = '#d27f0a';
+const textPrimary = '#f0f0f0';
+const textSecondary = '#00faff';
 
 const theme = {
   colors: {
     primary,
     secondary,
-    orange
+    textPrimary,
+    textSecondary
   }
 };
 
