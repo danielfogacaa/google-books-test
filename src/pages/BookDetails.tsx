@@ -3,23 +3,19 @@ import { useBooks } from 'hooks';
 import {
   Loading,
   Header,
-  List,
   Row,
-  Input,
   Text,
   Button,
-  Card,
   Container,
-  Image
+  Image,
+  Modal
 } from 'components';
-import toast from 'react-hot-toast';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { ThemeType } from '@/themes';
 import { useTheme } from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { convert } from '@/utils';
-import { maxWidth } from 'styled-system';
 
 type RouteParams = {
   bookId: string;
@@ -28,6 +24,7 @@ type RouteParams = {
 export const BookDetails = () => {
   const theme = useTheme() as ThemeType;
   const { bookId } = useParams<RouteParams>();
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
   const { bookDetails, getBook, isLoading } = useBooks();
   const { volumeInfo } = bookDetails;
 
@@ -49,12 +46,24 @@ export const BookDetails = () => {
   // );
 
   useEffect(() => {
-    if (bookId) getBook(bookId);
+    console.log({ bookId });
+    async function loadBook() {
+      try {
+        await getBook(bookId);
+      } catch (error) {
+        console.log('000000');
+        setModalVisible(true);
+      }
+    }
+    if (bookId) {
+      loadBook();
+    }
   }, [bookId, getBook]);
 
   return (
     <>
       {isLoading && <Loading />}
+      {modalVisible && <Modal></Modal>}
       <Container alignItems='flex-start' pb='2rem'>
         <Header p='2rem' alignItems='flex-start' pt={50}>
           <Text fontSize='3rem' fontWeight='bold'>

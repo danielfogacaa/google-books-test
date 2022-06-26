@@ -4,6 +4,8 @@ export * from './Button/button';
 export * from './Header/header';
 export * from './Row/row';
 export * from './Loading/loading';
+export * from './Backdrop/backdrop';
 export * from './Container/container';
 export * from './BookList';
 export * from './BookDetails';
+export * from './Modal/modal';

@@ -1,4 +1,4 @@
-import { Backdrop } from './Backdrop/backdrop';
+import { Backdrop } from '@/components';
 import { Loader } from './Loader/loader';
 import { Text } from 'components';
 import React from 'react';

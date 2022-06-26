@@ -10,6 +10,7 @@ const secondary = '#2764c4';
 const textPrimary = '#f0f0f0';
 const textSecondary = '#00faff';
 const textDark = '#353535';
+const error = '#d44040';
 
 const theme = {
   colors: {
@@ -17,7 +18,8 @@ const theme = {
     secondary,
     textPrimary,
     textSecondary,
-    textDark
+    textDark,
+    error
   }
 };
 

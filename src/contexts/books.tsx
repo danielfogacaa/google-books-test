@@ -69,19 +69,24 @@ export const BooksProvider = (props: any) => {
       setIsLoading(true);
       const book = bookList.find((book) => book.id === id);
       if (!book) {
-        const { status, data } = await BooksService.getBook(id);
+        try {
+          const { status, data } = await BooksService.getBook(id);
 
-        if (status !== 200) {
-          toast.error(`Erro ao trazer informações do livro!`);
-          throw new Error();
+          setBookDetails(data);
+          if (status !== 200) {
+            setBookDetails(initialDetailsState);
+            setIsLoading(false);
+          }
+        } catch (error: any) {
+          setIsLoading(false);
+          throw new Error(error?.message);
         }
-        setBookDetails(data);
       } else {
         setBookDetails(book);
       }
       setIsLoading(false);
     },
-    [bookList]
+    [bookList, initialDetailsState]
   );
   return (
     <BooksContext.Provider
