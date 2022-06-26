@@ -9,13 +9,15 @@ const primary = '#e2e2e2';
 const secondary = '#2764c4';
 const textPrimary = '#f0f0f0';
 const textSecondary = '#00faff';
+const textDark = '#353535';
 
 const theme = {
   colors: {
     primary,
     secondary,
     textPrimary,
-    textSecondary
+    textSecondary,
+    textDark
   }
 };
 

@@ -3,7 +3,8 @@ import { Text } from 'components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCameraRetro } from '@fortawesome/free-solid-svg-icons';
 
-import { ThumbContainer, ThumbImage } from './thumb';
+import { ThumbContainer } from './thumb';
+import { ThumbImage } from './thumbImage';
 import { useTheme } from 'styled-components';
 import { ThemeType } from '@/themes';
 
@@ -16,9 +17,9 @@ export const Thumb: React.FC<Props> = ({ url }) => {
   return (
     <ThumbContainer>
       {url ? (
-        <ThumbImage backgroundImage={`url("${url}")`} />
+        <ThumbImage backgroundImage={`url("${url}")`} clamp />
       ) : (
-        <ThumbImage background={theme.colors.textPrimary}>
+        <ThumbImage background={theme.colors.textPrimary} clamp>
           <FontAwesomeIcon
             icon={faCameraRetro}
             size='3x'

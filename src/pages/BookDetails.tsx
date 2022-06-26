@@ -9,14 +9,17 @@ import {
   Text,
   Button,
   Card,
-  Container
+  Container,
+  Image
 } from 'components';
 import toast from 'react-hot-toast';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { ThemeType } from '@/themes';
 import { useTheme } from 'styled-components';
 import { useParams } from 'react-router-dom';
+import { convert } from '@/utils';
+import { maxWidth } from 'styled-system';
 
 type RouteParams = {
   bookId: string;
@@ -26,7 +29,7 @@ export const BookDetails = () => {
   const theme = useTheme() as ThemeType;
   const { bookId } = useParams<RouteParams>();
   const { bookDetails, getBook, isLoading } = useBooks();
-  const [searchText, setSearchText] = useState<string>('');
+  const { volumeInfo } = bookDetails;
 
   // const handleSearch = useCallback(
   //   (
@@ -51,34 +54,87 @@ export const BookDetails = () => {
 
   return (
     <>
-      <div>{bookDetails?.volumeInfo.title}</div>
       {isLoading && <Loading />}
-      {/* <Header padding='2rem'>
-        <Text fontSize='3rem' fontWeight='bold'>
-          Biblioteca de livros
-        </Text>
-        <Text fontSize='1.5rem'>
-          Encontre seus livros favoritos e descubra novos
-        </Text>
-        <Row>
-          <form>
-            <Input
-              width={300}
-              height={50}
-              value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
-              placeholder='Nos ajude a encontrar seu livro...'
-            />
+      <Container alignItems='flex-start' pb='2rem'>
+        <Header p='2rem' alignItems='flex-start' pt={50}>
+          <Text fontSize='3rem' fontWeight='bold'>
+            {volumeInfo?.title}
+          </Text>
+          <Text fontSize='1.2rem'>
+            {volumeInfo?.authors
+              ? 'Autores: ' + volumeInfo?.authors.join(', ')
+              : 'Sem autores'}
+          </Text>
+          <Row justifyContent='flex-start'>
+            {volumeInfo?.publishedDate && (
+              <Text lineClamp={1}>
+                {`Data de publicação:  ${convert.dateToLocal(
+                  volumeInfo?.publishedDate
+                )}`}
+              </Text>
+            )}
+            <Text lineClamp={1}>
+              {volumeInfo?.publisher
+                ? `Editora: ${volumeInfo?.publisher}`
+                : 'Sem editora'}
+            </Text>
+          </Row>
+          <Row justifyContent='flex-end'>
+            {/* {volumeInfo?.pageCount && (
+              <Text flex={1}>{`Páginas: ${volumeInfo?.pageCount}`}</Text>
+            )} */}
             <Button
-              width={40}
+              fixedWidth={56}
+              title='Favoritar'
               //</form>onClick={(e) => handleSearch(e)}
               type='submit'
             >
-              <FontAwesomeIcon icon={faSearch} />
+              <FontAwesomeIcon icon={faHeart} size='3x' />
             </Button>
-          </form>
+          </Row>
+        </Header>
+        <Row justifyContent='flex-start' alignItems='flex-start' broken>
+          <Image url={volumeInfo?.imageLinks?.thumbnail} />
+          <Text
+            color={theme.colors.textDark}
+            flex={2}
+            px='1rem'
+            lineClamp='none'
+          >
+            {volumeInfo?.description || 'Sem descrição.'}
+          </Text>
         </Row>
-      </Header> */}
+        <Text fontSize='1rem' color={theme.colors.textDark}>
+          {volumeInfo?.categories
+            ? 'Categorias: ' + volumeInfo?.categories.join(', ')
+            : 'Sem categorias'}
+        </Text>
+        <Row justifyContent='flex-start' alignItems='flex-start' mt={30} broken>
+          <Button
+            fontSize='1.1rem'
+            onClick={() => window.open(volumeInfo?.previewLink, '_blank')}
+          >
+            Ver amostra
+          </Button>
+          <Button
+            fontSize='1.1rem'
+            onClick={() => window.open(volumeInfo?.infoLink, '_blank')}
+          >
+            Ver na Google Play
+          </Button>
+        </Row>
+      </Container>
+      {/* <Container>
+        <Row>
+          <Text
+            title={volumeInfo?.description}
+            color={theme.colors.textSecondary}
+          >
+            {volumeInfo?.description}
+          </Text>
+          <Image url={volumeInfo?.imageLinks?.thumbnail} />
+        </Row>
+      </Container> */}
       {/* {bookList.length > 0 && (
         <Container>
           <Text fontSize='1.5rem' color={theme.colors.secondary}>

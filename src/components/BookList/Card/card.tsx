@@ -37,18 +37,18 @@ export const Card: React.FC<Props> = ({ bookInfo }) => {
           {volumeInfo?.authors
             ? 'Autores: ' + volumeInfo?.authors.join(', ')
             : 'Sem autores'}
-          <Text
-            lineClamp={1}
-            title={
-              volumeInfo?.publisher
-                ? 'Editora: ' + volumeInfo?.publisher
-                : 'Sem editora'
-            }
-          >
-            {volumeInfo?.publisher
+        </Text>
+        <Text
+          lineClamp={1}
+          title={
+            volumeInfo?.publisher
               ? 'Editora: ' + volumeInfo?.publisher
-              : 'Sem editora'}
-          </Text>
+              : 'Sem editora'
+          }
+        >
+          {volumeInfo?.publisher
+            ? 'Editora: ' + volumeInfo?.publisher
+            : 'Sem editora'}
         </Text>
         <Text
           title={volumeInfo?.description}

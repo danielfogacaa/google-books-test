@@ -8,9 +8,15 @@ import {
   TypographyProps
 } from 'styled-system';
 
-export const Button = styled.button<ColorProps & LayoutProps & TypographyProps>`
-  width: 100%;
-  background: transparent;
+type ButtonProps = {
+  fixedWidth?: number;
+};
+
+export const Button = styled.button<
+  ColorProps & LayoutProps & TypographyProps & ButtonProps
+>`
+  width: ${(props) => props.fixedWidth || '250px'};
+  background-color: ${(props) => props.theme.colors.secondary};
   color: ${(props) => props.theme.colors.textPrimary};
   border-radius: 24px;
   padding: 0.5rem;
@@ -18,6 +24,10 @@ export const Button = styled.button<ColorProps & LayoutProps & TypographyProps>`
   ${color}
   ${layout}
   ${typography}
+
+  @media (max-width: 800px) {
+    width: ${(props) => props.fixedWidth || '100%'};
+  }
 
   &:hover {
     filter: brightness(0.9);

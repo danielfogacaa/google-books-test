@@ -49,7 +49,7 @@ export const Home = () => {
   return (
     <>
       {isLoading && <Loading />}
-      <Header padding='2rem'>
+      <Header padding='2rem' bg={theme.colors.secondary}>
         <Text fontSize='3rem' fontWeight='bold'>
           Biblioteca de livros
         </Text>
@@ -65,14 +65,18 @@ export const Home = () => {
               onChange={(e) => setSearchText(e.target.value)}
               placeholder='Nos ajude a encontrar seu livro...'
             />
-            <Button width={40} onClick={(e) => handleSearch(e)} type='submit'>
+            <Button
+              fixedWidth={40}
+              onClick={(e) => handleSearch(e)}
+              type='submit'
+            >
               <FontAwesomeIcon icon={faSearch} />
             </Button>
           </form>
         </Row>
       </Header>
       {bookList.length > 0 && (
-        <Container>
+        <Container py='2rem'>
           <Text fontSize='1.5rem' color={theme.colors.secondary}>
             {`Livros encontrados: ${listInfo?.totalItems}`}
           </Text>

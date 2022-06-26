@@ -5,15 +5,17 @@ import {
   color,
   ColorProps,
   space,
-  SpaceProps
+  SpaceProps,
+  flexbox,
+  FlexboxProps
 } from 'styled-system';
 
 type TextProps = {
-  lineClamp?: number;
+  lineClamp?: number | string;
 };
 
 export const Text = styled.p<
-  TypographyProps & ColorProps & SpaceProps & TextProps
+  TypographyProps & ColorProps & SpaceProps & FlexboxProps & TextProps
 >`
   color: ${(props) => props.theme.colors.primary};
   overflow: hidden;
@@ -24,4 +26,5 @@ export const Text = styled.p<
   ${color}
   ${typography}
   ${space}
+  ${flexbox}
 `;
