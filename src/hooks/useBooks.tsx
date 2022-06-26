@@ -19,6 +19,7 @@ export const useBooks = () => {
         toast.error(`Erro ao buscar os livros!`);
         throw new Error();
       }
+      setListInfo(_.omit(data, 'items'));
       setBookList((oldState) =>
         newSearch ? data.items : [...oldState, ...data.items]
       );

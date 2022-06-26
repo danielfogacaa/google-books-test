@@ -1,11 +1,24 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useBooks } from 'hooks';
-import { Loading, Header, Row, Input, Text, Button } from 'components';
+import {
+  Loading,
+  Header,
+  List,
+  Row,
+  Input,
+  Text,
+  Button,
+  Card,
+  Container
+} from 'components';
 import toast from 'react-hot-toast';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { ThemeType } from '@/themes';
+import { useTheme } from 'styled-components';
 
 export const Home = () => {
+  const theme = useTheme() as ThemeType;
   const { listInfo, bookList, getAll, isLoading } = useBooks();
   const [searchText, setSearchText] = useState<string>('');
 
@@ -27,7 +40,7 @@ export const Home = () => {
   return (
     <>
       {isLoading && <Loading />}
-      <Header>
+      <Header padding='2rem'>
         <Text fontSize='3rem' fontWeight='bold'>
           Biblioteca de livros
         </Text>
@@ -43,16 +56,32 @@ export const Home = () => {
               onChange={(e) => setSearchText(e.target.value)}
               placeholder='Nos ajude a encontrar seu livro...'
             />
-            <Button onClick={(e) => handleSearch(e)} type='submit'>
+            <Button width={40} onClick={(e) => handleSearch(e)} type='submit'>
               <FontAwesomeIcon icon={faSearch} />
             </Button>
           </form>
         </Row>
       </Header>
-      {listInfo?.totalItems}
-      {bookList?.map((item) => {
-        return <div key={item.id}>{item.volumeInfo.title}</div>;
-      })}
+      {bookList.length && (
+        <Container>
+          <Text fontSize='1.5rem' color={theme.colors.secondary}>
+            {`Livros encontrados: ${listInfo?.totalItems}`}
+          </Text>
+          <List>
+            {bookList?.map((item) => {
+              return <Card bookInfo={item} />;
+            })}
+          </List>
+          <Button
+            maxWidth={200}
+            bg={theme.colors.secondary}
+            fontSize='1.2rem'
+            onClick={(e) => handleSearch(e)}
+          >
+            Carregar mais livros...
+          </Button>
+        </Container>
+      )}
     </>
   );
 };

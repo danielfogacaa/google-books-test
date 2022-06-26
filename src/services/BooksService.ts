@@ -1,5 +1,5 @@
-import { IBookList } from 'interfaces';
-import { Api } from 'providers';
+import { IBookList } from '@/interfaces';
+import { Api } from '@/providers';
 
 const getAll = (searchText: string) => Api.get<IBookList>(`/volumes?q=${searchText}`);
 

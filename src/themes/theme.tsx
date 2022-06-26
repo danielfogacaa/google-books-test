@@ -6,12 +6,14 @@ interface Props {
 }
 
 const primary = '#eeeeee';
-const secondary = '#0062ff';
+const secondary = '#2764c4';
+const orange = '#d27f0a';
 
 const theme = {
   colors: {
     primary,
-    secondary
+    secondary,
+    orange
   }
 };
 
