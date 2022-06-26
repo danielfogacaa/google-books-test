@@ -16,34 +16,44 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { ThemeType } from '@/themes';
 import { useTheme } from 'styled-components';
+import { useParams } from 'react-router-dom';
+
+type RouteParams = {
+  bookId: string;
+};
 
 export const BookDetails = () => {
   const theme = useTheme() as ThemeType;
-  const { listInfo, bookList, getAll, isLoading, startIndex } = useBooks();
+  const { bookId } = useParams<RouteParams>();
+  const { bookDetails, getBook, isLoading } = useBooks();
   const [searchText, setSearchText] = useState<string>('');
 
-  const handleSearch = useCallback(
-    (
-      e?: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-      loadMore?: boolean
-    ) => {
-      e && e.preventDefault();
-      if (!searchText) {
-        toast.error(
-          `Você deve digitar algo para que possamos encontrar seu livro!`
-        );
-        return;
-      }
-      getAll(searchText, loadMore);
-    },
-    [getAll, searchText]
-  );
+  // const handleSearch = useCallback(
+  //   (
+  //     e?: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  //     loadMore?: boolean
+  //   ) => {
+  //     e && e.preventDefault();
+  //     if (!searchText) {
+  //       toast.error(
+  //         `Você deve digitar algo para que possamos encontrar seu livro!`
+  //       );
+  //       return;
+  //     }
+  //     getAll(searchText, loadMore);
+  //   },
+  //   [getAll, searchText]
+  // );
+
+  useEffect(() => {
+    if (bookId) getBook(bookId);
+  }, [bookId, getBook]);
 
   return (
     <>
-      Book Details
+      <div>{bookDetails?.volumeInfo.title}</div>
       {isLoading && <Loading />}
-      <Header padding='2rem'>
+      {/* <Header padding='2rem'>
         <Text fontSize='3rem' fontWeight='bold'>
           Biblioteca de livros
         </Text>
@@ -59,13 +69,17 @@ export const BookDetails = () => {
               onChange={(e) => setSearchText(e.target.value)}
               placeholder='Nos ajude a encontrar seu livro...'
             />
-            <Button width={40} onClick={(e) => handleSearch(e)} type='submit'>
+            <Button
+              width={40}
+              //</form>onClick={(e) => handleSearch(e)}
+              type='submit'
+            >
               <FontAwesomeIcon icon={faSearch} />
             </Button>
           </form>
         </Row>
-      </Header>
-      {bookList.length > 0 && (
+      </Header> */}
+      {/* {bookList.length > 0 && (
         <Container>
           <Text fontSize='1.5rem' color={theme.colors.secondary}>
             {`Livros encontrados: ${listInfo?.totalItems}`}
@@ -86,7 +100,7 @@ export const BookDetails = () => {
             </Button>
           )}
         </Container>
-      )}
+      )} */}
     </>
   );
 };

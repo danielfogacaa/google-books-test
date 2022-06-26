@@ -19,8 +19,15 @@ import { useTheme } from 'styled-components';
 
 export const Home = () => {
   const theme = useTheme() as ThemeType;
-  const { listInfo, bookList, getAll, isLoading, startIndex } = useBooks();
-  const [searchText, setSearchText] = useState<string>('');
+  const {
+    listInfo,
+    bookList,
+    getAll,
+    searchText,
+    setSearchText,
+    isLoading,
+    startIndex
+  } = useBooks();
 
   const handleSearch = useCallback(
     (
@@ -34,7 +41,7 @@ export const Home = () => {
         );
         return;
       }
-      getAll(searchText, loadMore);
+      getAll(loadMore);
     },
     [getAll, searchText]
   );

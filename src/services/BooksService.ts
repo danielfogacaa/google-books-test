@@ -1,11 +1,12 @@
-import { IBookList } from '@/interfaces';
+import { IBookList, IBook } from '@/interfaces';
 import { Api } from '@/providers';
 
-const getAll = (searchText: string, startIndex: number) => {
-  console.log({ startIndex });
-  return Api.get<IBookList>(`/volumes?q=${searchText}&startIndex=${startIndex}`);
-};
+const getAll = (searchText: string, startIndex: number) => Api.get<IBookList>(`/volumes?q=${searchText}&startIndex=${startIndex}`);
+
+const getBook = (id: string) =>
+  Api.get<IBook>(`/volumes/${id}`);
 
 export const BooksService = {
   getAll,
+  getBook
 };
