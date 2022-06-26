@@ -10,7 +10,7 @@ type Props = {
   bookInfo: IBook;
 };
 
-export const Card: React.FC<Props> = ({ bookInfo }, props) => {
+export const Card: React.FC<Props> = ({ bookInfo }) => {
   const theme = useTheme() as ThemeType;
   const navigate = useNavigate();
   const { id, volumeInfo } = bookInfo;
@@ -22,13 +22,6 @@ export const Card: React.FC<Props> = ({ bookInfo }, props) => {
             {volumeInfo?.title}
           </Text>
         </Header>
-        {/* <h4
-          className='card-title text-dark card-text-overflow'
-          title={volumeInfo?.title}
-        >
-          {volumeInfo?.title}
-        </h4> */}
-        {/* <p title={volumeInfo?.authors[0] || '-'}></p> */}
         <Text
           fontSize='0.9rem'
           my='0.6rem'
@@ -55,24 +48,6 @@ export const Card: React.FC<Props> = ({ bookInfo }, props) => {
         <Text title={volumeInfo?.description} color={theme.colors.orange}>
           {volumeInfo?.description}
         </Text>
-        {/* <Text>{`${volumeInfo?.pageCount} páginas`}</Text> */}
-        {/* <p
-          className='card-text text-secondary card-text-overflow card-description'
-          title={volumeInfo?.description}
-        >
-          {volumeInfo?.description}
-        </p> */}
-        {/* <div className='row'>
-          <div className='col-12 d-flex justify-content-end'>
-            <button
-              type='button'
-              className='btn btn-secondary'
-              onClick={() => navigate(`/edit-product/${id}`)}
-            >
-              Visualizar produto
-            </button>
-          </div>
-        </div> */}
       </Details>
       <Thumb url={volumeInfo?.imageLinks?.thumbnail} />
     </CardContainer>

@@ -19,20 +19,22 @@ import { useTheme } from 'styled-components';
 
 export const Home = () => {
   const theme = useTheme() as ThemeType;
-  const { listInfo, bookList, getAll, isLoading } = useBooks();
+  const { listInfo, bookList, getAll, isLoading, startIndex } = useBooks();
   const [searchText, setSearchText] = useState<string>('');
 
   const handleSearch = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      e.preventDefault();
+    (
+      e?: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+      loadMore?: boolean
+    ) => {
+      e && e.preventDefault();
       if (!searchText) {
         toast.error(
           `Você deve digitar algo para que possamos encontrar seu livro!`
         );
         return;
       }
-      setSearchText('');
-      getAll(searchText, true);
+      getAll(searchText, loadMore);
     },
     [getAll, searchText]
   );
@@ -69,17 +71,19 @@ export const Home = () => {
           </Text>
           <List>
             {bookList?.map((item) => {
-              return <Card bookInfo={item} />;
+              return <Card key={item.id} bookInfo={item} />;
             })}
           </List>
-          <Button
-            maxWidth={200}
-            bg={theme.colors.secondary}
-            fontSize='1.2rem'
-            onClick={(e) => handleSearch(e)}
-          >
-            Carregar mais livros...
-          </Button>
+          {startIndex < listInfo?.totalItems && (
+            <Button
+              maxWidth={200}
+              bg={theme.colors.secondary}
+              fontSize='1.2rem'
+              onClick={(e) => handleSearch(e, true)}
+            >
+              Carregar mais livros...
+            </Button>
+          )}
         </Container>
       )}
     </>
