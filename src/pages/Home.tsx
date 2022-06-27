@@ -56,7 +56,7 @@ export const Home = () => {
       loadMore?: boolean
     ) => {
       e && e.preventDefault();
-      if (!searchText) {
+      if (!searchText.trim()) {
         toast.error(
           `Você deve digitar algo para que possamos encontrar seu livro!`
         );
