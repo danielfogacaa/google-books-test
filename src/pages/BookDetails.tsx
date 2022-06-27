@@ -14,7 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { ThemeType } from '@/themes';
 import { useTheme } from 'styled-components';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { convert } from '@/utils';
 
 type RouteParams = {
@@ -23,6 +23,7 @@ type RouteParams = {
 
 export const BookDetails = () => {
   const theme = useTheme() as ThemeType;
+  const navigate = useNavigate();
   const { bookId } = useParams<RouteParams>();
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const { bookDetails, getBook, favoriteBook, isLoading } = useBooks();
@@ -120,6 +121,13 @@ export const BookDetails = () => {
             onClick={() => window.open(volumeInfo?.infoLink, '_blank')}
           >
             Ver na Google Play
+          </Button>
+          <Button
+            fontSize='1.1rem'
+            onClick={() => navigate('/book-list')}
+            bg={theme.colors.favorite}
+          >
+            Voltar para a pesquisa
           </Button>
         </Row>
       </Container>

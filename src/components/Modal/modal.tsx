@@ -23,7 +23,7 @@ export const Modal: React.FC = () => {
           Erro ao trazer informações do livro!
         </Text>
         <Button fontSize='1.2rem' onClick={() => navigate('/book-list')}>
-          Voltar para a lista
+          Voltar para a pesquisa
         </Button>
       </Container>
     </Backdrop>
