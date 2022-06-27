@@ -1,9 +1,9 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Text } from '@/components';
 import { StyledImage } from './styledImage';
 import { useTheme } from 'styled-components';
 import { ThemeType } from '@/themes';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCameraRetro } from '@fortawesome/free-solid-svg-icons';
 
 type Props = {

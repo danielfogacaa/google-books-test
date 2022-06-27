@@ -16,6 +16,7 @@ export interface IBook {
     previewLink: string;
     infoLink: string;
   },
+  favorite: boolean;
 }
 
 export interface IBookList {

@@ -15,4 +15,5 @@ export const StyledImage = styled.div<BackgroundProps & ColorProps>`
   align-items: center;
   gap: 0.4rem;
   ${background}
+  ${color}
 `;

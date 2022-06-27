@@ -5,7 +5,9 @@ import {
   layout,
   LayoutProps,
   typography,
-  TypographyProps
+  TypographyProps,
+  position,
+  PositionProps
 } from 'styled-system';
 
 type ButtonProps = {
@@ -13,7 +15,7 @@ type ButtonProps = {
 };
 
 export const Button = styled.button<
-  ColorProps & LayoutProps & TypographyProps & ButtonProps
+  ColorProps & LayoutProps & TypographyProps & PositionProps & ButtonProps
 >`
   width: ${(props) => props.fixedWidth || '250px'};
   background-color: ${(props) => props.theme.colors.secondary};
@@ -24,6 +26,7 @@ export const Button = styled.button<
   ${color}
   ${layout}
   ${typography}
+  ${position}
 
   @media (max-width: 800px) {
     width: ${(props) => props.fixedWidth || '100%'};

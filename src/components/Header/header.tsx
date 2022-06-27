@@ -17,6 +17,8 @@ export const Header = styled.div<SpaceProps & FlexboxProps & ColorProps>`
   justify-content: center;
   align-items: center;
   gap: 2rem;
+  -webkit-box-shadow: 0px 7px 14px -3px rgba(0, 0, 0, 0.47);
+  box-shadow: 0px 7px 14px -3px rgba(0, 0, 0, 0.47);
   ${space}
   ${flexbox} 
   ${color}

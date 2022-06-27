@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useBooks } from 'hooks';
 import {
   Loading,
@@ -25,33 +25,14 @@ export const BookDetails = () => {
   const theme = useTheme() as ThemeType;
   const { bookId } = useParams<RouteParams>();
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const { bookDetails, getBook, isLoading } = useBooks();
+  const { bookDetails, getBook, favoriteBook, isLoading } = useBooks();
   const { volumeInfo } = bookDetails;
 
-  // const handleSearch = useCallback(
-  //   (
-  //     e?: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  //     loadMore?: boolean
-  //   ) => {
-  //     e && e.preventDefault();
-  //     if (!searchText) {
-  //       toast.error(
-  //         `Você deve digitar algo para que possamos encontrar seu livro!`
-  //       );
-  //       return;
-  //     }
-  //     getAll(searchText, loadMore);
-  //   },
-  //   [getAll, searchText]
-  // );
-
   useEffect(() => {
-    console.log({ bookId });
     async function loadBook() {
       try {
         await getBook(bookId);
       } catch (error) {
-        console.log('000000');
         setModalVisible(true);
       }
     }
@@ -89,16 +70,24 @@ export const BookDetails = () => {
             </Text>
           </Row>
           <Row justifyContent='flex-end'>
-            {/* {volumeInfo?.pageCount && (
+            {volumeInfo?.pageCount && (
               <Text flex={1}>{`Páginas: ${volumeInfo?.pageCount}`}</Text>
-            )} */}
+            )}
             <Button
               fixedWidth={56}
               title='Favoritar'
-              //</form>onClick={(e) => handleSearch(e)}
+              onClick={() => favoriteBook(!!bookDetails.favorite)}
               type='submit'
             >
-              <FontAwesomeIcon icon={faHeart} size='3x' />
+              <FontAwesomeIcon
+                icon={faHeart}
+                size='3x'
+                color={`${
+                  bookDetails?.favorite
+                    ? theme.colors.favorite
+                    : theme.colors.textPrimary
+                }`}
+              />
             </Button>
           </Row>
         </Header>
@@ -107,6 +96,7 @@ export const BookDetails = () => {
           <Text
             color={theme.colors.textDark}
             flex={2}
+            fontSize='1.1rem'
             px='1rem'
             lineClamp='none'
           >
@@ -133,39 +123,6 @@ export const BookDetails = () => {
           </Button>
         </Row>
       </Container>
-      {/* <Container>
-        <Row>
-          <Text
-            title={volumeInfo?.description}
-            color={theme.colors.textSecondary}
-          >
-            {volumeInfo?.description}
-          </Text>
-          <Image url={volumeInfo?.imageLinks?.thumbnail} />
-        </Row>
-      </Container> */}
-      {/* {bookList.length > 0 && (
-        <Container>
-          <Text fontSize='1.5rem' color={theme.colors.secondary}>
-            {`Livros encontrados: ${listInfo?.totalItems}`}
-          </Text>
-          <List>
-            {bookList?.map((item) => {
-              return <Card key={item.id} bookInfo={item} />;
-            })}
-          </List>
-          {startIndex < listInfo?.totalItems && (
-            <Button
-              maxWidth={200}
-              bg={theme.colors.secondary}
-              fontSize='1.2rem'
-              onClick={(e) => handleSearch(e, true)}
-            >
-              Carregar mais livros...
-            </Button>
-          )}
-        </Container>
-      )} */}
     </>
   );
 };
