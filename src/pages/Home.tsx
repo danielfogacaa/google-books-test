@@ -32,7 +32,7 @@ export const Home = () => {
 
   const [scrollToTopVisible, setScrollToTopVisible] = useState(false);
 
-  const toggleVisible = () => {
+  const handleScrollToTopVisible = () => {
     const scrolled = document.documentElement.scrollTop;
     if (scrolled > 100) {
       setScrollToTopVisible(true);
@@ -48,7 +48,7 @@ export const Home = () => {
     });
   };
 
-  window.addEventListener('scroll', toggleVisible);
+  window.addEventListener('scroll', handleScrollToTopVisible);
 
   const handleSearch = useCallback(
     (
@@ -74,8 +74,8 @@ export const Home = () => {
         <Button
           fixedWidth={56}
           position='fixed'
-          bottom={30}
-          right={30}
+          bottom='1rem'
+          right='1rem'
           zIndex={999}
           bg='transparent'
           color={theme.colors.secondary}

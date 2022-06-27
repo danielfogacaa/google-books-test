@@ -1,5 +1,4 @@
 export * from './Text/text';
-export * from './Input/input';
 export * from './Button/button';
 export * from './Header/header';
 export * from './Row/row';
